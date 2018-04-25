@@ -13,7 +13,7 @@
     "publicPath": {
       "type": "string"
     },
-    "mode": {
+    "type": {
       "type": "string"
     }
   },
