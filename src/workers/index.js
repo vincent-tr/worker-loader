@@ -22,6 +22,7 @@ const getWorker = (file, content, options) => {
     return `require(${InlineWorkerPath})(${JSON.stringify(content)}, ${fallbackWorkerPath}, ${workerType})`;
   }
 
+  console.log(`generated code : new ${workerType}(${publicWorkerPath})`);
   return `new ${workerType}(${publicWorkerPath})`;
 };
 
