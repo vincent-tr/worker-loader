@@ -94,7 +94,7 @@ export function pitch(request) {
         options
       );
 
-      if (options.fallback === false) {
+      if (options.fallback === false && !options.publicPath) {
         delete this._compilation.assets[worker.file];
       }
 
