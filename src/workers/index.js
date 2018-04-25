@@ -8,6 +8,8 @@ const getWorker = (file, content, options) => {
 
   const publicWorkerPath = `${publicPath} + ${JSON.stringify(file)}`;
 
+  const workerType = options.type || 'Worker';
+
   if (options.inline) {
     const InlineWorkerPath = JSON.stringify(`!!${
       path.join(__dirname, 'InlineWorker.js')
@@ -16,8 +18,6 @@ const getWorker = (file, content, options) => {
     const fallbackWorkerPath = options.fallback === false
       ? 'null'
       : publicWorkerPath;
-
-    const workerType = options.type || 'Worker';
 
     return `require(${InlineWorkerPath})(${JSON.stringify(content)}, ${fallbackWorkerPath}, ${workerType})`;
   }
