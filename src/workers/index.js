@@ -7,8 +7,8 @@ const getWorker = (file, content, options) => {
     : '__webpack_public_path__';
 
   const publicWorkerPath = `${publicPath} + ${JSON.stringify(file)}`;
-
   const workerType = options.type || 'Worker';
+  const workerOptions = { name : options.name };
 
   if (options.inline) {
     const InlineWorkerPath = JSON.stringify(`!!${
@@ -19,10 +19,10 @@ const getWorker = (file, content, options) => {
       ? 'null'
       : publicWorkerPath;
 
-    return `require(${InlineWorkerPath})(${JSON.stringify(content)}, ${fallbackWorkerPath}, ${workerType})`;
+    return `require(${InlineWorkerPath})(${JSON.stringify(content)}, ${fallbackWorkerPath}, ${workerType}, ${JSON.stringify(workerOptions)})`;
   }
 
-  return `new ${workerType}(${publicWorkerPath})`;
+  return `new ${workerType}(${publicWorkerPath}, ${JSON.stringify(workerOptions)})`;
 };
 
 export default getWorker;

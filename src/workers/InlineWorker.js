@@ -2,7 +2,7 @@
 
 var URL = window.URL || window.webkitURL;
 
-module.exports = function (content, url, WorkerType) {
+module.exports = function (content, url, WorkerType, workerOptions) {
   try {
     try {
       var blob;
@@ -24,15 +24,15 @@ module.exports = function (content, url, WorkerType) {
         blob = new Blob([content]);
       }
 
-      return new WorkerType(URL.createObjectURL(blob));
+      return new WorkerType(URL.createObjectURL(blob), workerOptions);
     } catch (e) {
-      return new WorkerType('data:application/javascript,' + encodeURIComponent(content));
+      return new WorkerType('data:application/javascript,' + encodeURIComponent(content), workerOptions);
     }
   } catch (e) {
     if (!url) {
       throw Error('Inline worker is not supported');
     }
 
-    return new WorkerType(url);
+    return new WorkerType(url, workerOptions);
   }
 };
