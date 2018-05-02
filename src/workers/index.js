@@ -8,7 +8,7 @@ const getWorker = (file, content, options) => {
 
   const publicWorkerPath = `${publicPath} + ${JSON.stringify(file)}`;
   const workerType = options.type || 'Worker';
-  const workerName = options.name;
+  const workerName = options.name ? JSON.stringify(options.name) : 'undefined';
 
   if (options.inline) {
     const InlineWorkerPath = JSON.stringify(`!!${
