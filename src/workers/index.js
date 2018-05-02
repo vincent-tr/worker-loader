@@ -8,7 +8,7 @@ const getWorker = (file, content, options) => {
 
   const publicWorkerPath = `${publicPath} + ${JSON.stringify(file)}`;
   const workerType = options.type || 'Worker';
-  const workerOptions = { name : options.name };
+  const workerName = options.name;
 
   if (options.inline) {
     const InlineWorkerPath = JSON.stringify(`!!${
@@ -19,10 +19,10 @@ const getWorker = (file, content, options) => {
       ? 'null'
       : publicWorkerPath;
 
-    return `require(${InlineWorkerPath})(${JSON.stringify(content)}, ${fallbackWorkerPath}, ${workerType}, ${JSON.stringify(workerOptions)})`;
+    return `require(${InlineWorkerPath})(${JSON.stringify(content)}, ${fallbackWorkerPath}, ${workerType}, ${workerName})`;
   }
 
-  return `new ${workerType}(${publicWorkerPath}, ${JSON.stringify(workerOptions)})`;
+  return `new ${workerType}(${publicWorkerPath}, ${workerName})`;
 };
 
 export default getWorker;
